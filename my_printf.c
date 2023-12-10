@@ -9,17 +9,16 @@ int my_putchar(char c)
 {
   return write(1, &c, 1);
 }
-
 int my_putstr(char *str) 
 {
-  int index = 0;
-  
-  while (str[index] != '\0') 
+  int i = 0;
+
+  while (str[i] != '\0') 
   {
-    my_putchar(str[index]);
-    index += 1;
+    my_putchar(str[i]);
+    i += 1;
   }
-  return index;
+  return i;
 }
 
 int proceed_flag(va_list *arg, char flag) 

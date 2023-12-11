@@ -93,6 +93,11 @@ int my_printf(char* format, ...) {
                     len += printfo(u);
                     break;
 
+                case 'x':
+                    x = va_arg(ap, intptr_t);
+                    len += printx(x);
+                    break;
+
 
 
                 default:

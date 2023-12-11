@@ -49,3 +49,42 @@ int my_putstr(char *s) {
     return len;
 }
 
+int my_printf(char* format, ...) {
+
+    va_list ap;
+    char *s, c;
+    int d;
+    unsigned int u;
+    intptr_t x;
+    int len = 0;
+
+    va_start(ap, format);
+
+    while (*format) {
+        if (*format == '%') {
+            switch (*++format) {
+                case 's':
+                    s = va_arg(ap, char *);
+                    if(!s || !*s) {
+                        len += my_putstr("(null)");
+                        len += 6;
+                    }
+                    else
+                    len += my_putstr(s);
+                    break;
+
+
+                default:
+                    len += my_putchar('%');
+            }
+            format++;
+        }
+        if (*format != '%') {
+            len += my_putchar(*format);
+            format++;
+        }
+    }
+    va_end(ap);
+
+    return (len);
+}

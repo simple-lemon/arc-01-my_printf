@@ -83,6 +83,11 @@ int my_printf(char* format, ...) {
                     len += my_putchar(c);
                     break;
 
+                case 'u':
+                    u = va_arg(ap, unsigned int);
+                    len += printud(u);
+                    break;
+
 
 
                 default:

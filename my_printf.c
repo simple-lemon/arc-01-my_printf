@@ -88,6 +88,11 @@ int my_printf(char* format, ...) {
                     len += printud(u);
                     break;
 
+                case 'o':
+                    u = va_arg(ap, unsigned int);
+                    len += printfo(u);
+                    break;
+
 
 
                 default:

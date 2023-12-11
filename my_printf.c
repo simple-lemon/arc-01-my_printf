@@ -78,6 +78,11 @@ int my_printf(char* format, ...) {
                     len += printd(d);
                     break;
 
+                case 'c':
+                    c = va_arg(ap, int);
+                    len += my_putchar(c);
+                    break;
+
 
 
                 default:

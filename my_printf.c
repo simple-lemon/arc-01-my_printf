@@ -98,7 +98,10 @@ int my_printf(char* format, ...) {
                     len += printx(x);
                     break;
 
-
+                case 'p':
+                    x = va_arg(ap, intptr_t);
+                    len += my_putstr("0x") + printx(x);
+                    break;
 
                 default:
                     len += my_putchar('%');

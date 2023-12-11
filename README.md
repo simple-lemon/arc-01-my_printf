@@ -1,35 +1,4 @@
-# arc-01-my_printf
-<div class="card-block">
-<div class="row">
-<div class="col tab-content">
-<div class="tab-pane active show" id="subject" role="tabpanel">
-<div class="row">
-<div class="col-md-12 col-xl-12">
-<div class="markdown-body">
-<p class="text-muted m-b-15">
-</p><h1>My Printf</h1>
-<p>Remember to git add &amp;&amp; git commit &amp;&amp; git push each exercise!</p>
-<p>We will execute your function with our test(s), please DO NOT PROVIDE ANY TEST(S) in your file</p>
-<p>For each exercise, you will have to create a folder and in this folder, you will have additional files that contain your work. Folder names are provided at the beginning of each exercise under <code>submit directory</code> and specific file names for each exercise are also provided at the beginning of each exercise under <code>submit file(s)</code>.</p>
-<hr>
-<table>
-<thead>
-<tr>
-<th>My Printf</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Submit directory</td>
-<td>.</td>
-</tr>
-<tr>
-<td>Submit file</td>
-<td>my_printf.c</td>
-</tr>
-</tbody>
-</table>
+# Welcome to My Printf
 <h3>Description</h3>
 <h2>NAME</h2>
 <p><code>int my_printf(char * restrict format, ...);</code></p>
@@ -97,13 +66,56 @@ the code is well designed !</p>
 <p>Good luck!</p>
 
 <p></p>
-</div>
 
-</div>
-</div>
-</div>
-<div class="tab-pane" id="resources" role="tabpanel">
-</div>
-</div>
-</div>
-</div>
+## Usage
+To use the `my_printf` function in your C code, follow these steps:
+
+1. Include the `my_printf` function definition in your code.
+2. Call `my_printf` in your program, passing the format string and any additional arguments as needed.
+   
+   ```c
+   my_printf("Format string", argument1, argument2, ...);
+
+# Format Specifiers
+
+### my_printf supports the following format specifiers:
+
+    %s - Prints a string.
+    %d - Prints a signed integer.
+    %c - Prints a single character.
+    %u - Prints an unsigned integer.
+    %o - Prints an octal number.
+    %x - Prints a hexadecimal number (lowercase).
+    %p - Prints a pointer address in hexadecimal.
+
+## Installation
+
+To use the `my_printf` function in your project, follow these steps:
+
+1. Copy the `my_printf` function code into your C project.
+2. Include the necessary header files (`stdio.h`, `unistd.h`, `stdarg.h`) in your project where you intend to use `my_printf`.
+3. Compile your project along with the file containing the `my_printf` function.
+
+## Example
+
+Here's an example demonstrating how to use `my_printf`:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int num = 42;
+    char* str = "Hello, World!";
+    printf("Using my_printf: ");
+    my_printf("Number: %d, String: %s\n", num, str);
+
+    return 0;
+}
+```
+
+### Notes
+
+- Ensure that the header files (stdio.h, unistd.h, stdarg.h) are accessible and included properly in your project.
+- Handle memory allocation and NULL checks appropriately for %s specifier to avoid segmentation faults.
+
+Feel free to modify and enhance the my_printf function to suit your specific needs or add additional format specifiers as required.

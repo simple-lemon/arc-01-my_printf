@@ -1,7 +1,7 @@
 # Welcome to my printf code
 
 ## Task 
-
+- The task is completing printf project. Obviously, we must write a code which is print things without printf function.
 
 ## Project Structure
 - **Submit Directory:** 

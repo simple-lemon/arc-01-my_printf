@@ -297,6 +297,7 @@ int main()
   my_printf("%d\n", 5); // testing the %d.
   my_printf("%c\n", 'a'); // testing the %c.
   my_printf("%u\n", -100); // testing the %u.
+  printf("%u\n", -100); // testing the %u.
   my_printf("%x\n", 43); // testing the %x.
   // printf("%x\n", 43);
 

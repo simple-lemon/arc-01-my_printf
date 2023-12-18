@@ -219,7 +219,7 @@ char* my_string_print(char* my_string) // created to print %s (string).
 
 
 
-int my_printf(char* text, ...) // implementation of printf(); created to print all the characters and strings that are given in main() function.
+int my_printf(char* text, ...) // implementation of printf(); created to print all the characters and strings that are given in main() function that prints my implementation of printf()
 {
   va_list params;
   va_start(params,text);

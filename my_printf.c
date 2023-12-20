@@ -90,6 +90,32 @@ void print_x(unsigned int num, int *characters) {
     }
 }
 
+void print_u(unsigned int num, int *characters) {
+    char buffer [20];
+    int i = 0;
+    while (num) {
+        buffer[++] = num % 10 + '0';
+        num /= 10;
+    }
+    while (i) {
+        putchar(buffer[--]);
+        (*characters)++;
+    }
+}
+
+void print_o(unsigned int num, int *characters) {
+    char buffer [20];
+    int i = 0;
+    while (num) {
+        buffer[++] = num % 10 + '0';
+        num /= 8;
+    }
+    while (i) {
+        putchar(buffer[--]);
+        (*characters)++;
+    }
+}
+
 int my_printf(const char *format, ...) {
     int characters = 0;
     va_list args;
@@ -110,6 +136,10 @@ int my_printf(const char *format, ...) {
                 print_p(va_arg(args, void *), &characters);
             } else if (*format == 'x') {
                 print_x(va_arg(args, unsigned int), &characters);
+            } else if (*format == 'u') {
+                print_u(va_arg(args, unsigned int), &characters);
+            } else if (*format == 'o') {
+                print_o(va_arg(args, unsigned int), &characters);
             } else {
                 putchar('%');
                 putchar(*format);
@@ -129,6 +159,6 @@ int my_printf(const char *format, ...) {
 
 int main(void)
 {
-  my_printf("Hello %s, number is %d, float is %f, pointer is %p, hex is %x\n", "World", 42, 3.14, (void *)1234, 255);
+  my_printf("Hello %s, number is %d, float is %f, pointer is %p, hex is 0x%x, unsigned is %u, octal is %o\n", "World", 42, 3.14, (void *)1234, 255, 129, 63);
     return 0;
 }

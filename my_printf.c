@@ -94,11 +94,11 @@ void print_u(unsigned int num, int *characters) {
     char buffer [20];
     int i = 0;
     while (num) {
-        buffer[++] = num % 10 + '0';
+        buffer[i++] = num % 10 + '0';
         num /= 10;
     }
     while (i) {
-        putchar(buffer[--]);
+        putchar(buffer[--i]);
         (*characters)++;
     }
 }
@@ -107,11 +107,11 @@ void print_o(unsigned int num, int *characters) {
     char buffer [20];
     int i = 0;
     while (num) {
-        buffer[++] = num % 10 + '0';
+        buffer[i++] = num % 10 + '0';
         num /= 8;
     }
     while (i) {
-        putchar(buffer[--]);
+        putchar(buffer[--i]);
         (*characters)++;
     }
 }

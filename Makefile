@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra -Werror
 SRC = my_printf.c
-TARGET = my_printf  
+TARGET = my_printf
 
 $(TARGET) : $(SRC)
 	gcc $(CFLAGS) -o $@ $<

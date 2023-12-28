@@ -3,16 +3,37 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-void print_d(int num, int *characters){
+void print_d(int num, int *characters) {
     char buffer[20];
-    int i = num == 0;
-    int isNegative = (num < 0) ? (num = -num, 1) : 0;
+    int i;
 
-    while (num) buffer[i++] = num % 10 + '0', num /= 10;
-    if (isNegative) buffer[i++] = '-';
+    if (num == 0) {
+        i = 1;
+    } else {
+        i = 0;
+    }
 
-    while (i) putchar(buffer[--i]), (*characters)++;
+    int isNegative = 0;
+    if (num < 0) {
+        num = -num;
+        isNegative = 1;
+    }
+
+    while (num) {
+        buffer[i++] = num % 10 + '0';
+        num /= 10;
+    }
+
+    if (isNegative) {
+        buffer[i++] = '-';
+    }
+
+    while (i) {
+        putchar(buffer[--i]);
+        (*characters)++;
+    }
 }
+
 
 void print_c(char c, int *characters){
     putchar(c);
@@ -27,22 +48,31 @@ void print_s(char *s, int *characters){
     }
 }
 
-void print_f(double num, int *characters){
+void print_f(double num, int *characters) {
     char buffer[20];
     int i = 0;
-    int isNegative = (num < 0) ? (num = -num, 1) : 0;
+
+    int isNegative = 0;
+    if (num < 0) {
+        num = -num;
+        isNegative = 1;
+    }
+
     int int_part = (int)num;
     double fractional_part = num - int_part;
+
     while (int_part) {
         buffer[i++] = int_part % 10 + '0';
         int_part /= 10;
     }
+
     if (isNegative) {
         buffer[i++] = '-';
     }
+
     if (fractional_part > 0) {
         buffer[i++] = '.';
-        int decimal_places = 2;
+        int decimal_places = 2; 
         for (int j = 0; j < decimal_places; j++) {
             fractional_part *= 10;
             buffer[i++] = (int)fractional_part + '0';
@@ -56,47 +86,68 @@ void print_f(double num, int *characters){
     }
 }
 
+
 void print_p(void *ptr, int *characters) {
-    uintptr_t intptr = (uintptr_t)ptr;
+    uintptr_t intptr = (uintptr_t)ptr; 
     char buffer[20];
     int i = 0;
 
     if (intptr == 0) {
-        buffer[i++] = '0';
+        buffer[i] = '0';
+        i++;
     } else {
         while (intptr) {
             int digit = intptr % 16;
-            buffer[i++] = (digit < 10) ? digit + '0' : digit - 10 + 'a';
+            if (digit < 10) {
+                buffer[i] = digit + '0';
+            } else {
+                buffer[i] = digit - 10 + 'a';
+            }
+            i++;
             intptr /= 16;
         }
     }
+
     while (i) {
-        putchar(buffer[--i]);
+        i--;
+        putchar(buffer[i]);
         (*characters)++;
     }
 }
+
 
 void print_x(unsigned int num, int *characters) {
     char buffer[20];
     int i = 0;
+
     while (num) {
         int digit = num % 16;
-        buffer[i++] = (digit < 10) ? digit + '0' : digit - 10 + 'a';
+        if (digit < 10) {
+            buffer[i] = digit + '0';
+        } else {
+            buffer[i] = digit - 10 + 'a';
+        }
+        i++;
         num /= 16;
     }
+
     while (i) {
-        putchar(buffer[--i]);
+        i--;
+        putchar(buffer[i]);
         (*characters)++;
     }
 }
 
+
 void print_u(unsigned int num, int *characters) {
-    char buffer [20];
+    char buffer[20];
     int i = 0;
+
     while (num) {
         buffer[i++] = num % 10 + '0';
         num /= 10;
     }
+
     while (i) {
         putchar(buffer[--i]);
         (*characters)++;
@@ -104,17 +155,20 @@ void print_u(unsigned int num, int *characters) {
 }
 
 void print_o(unsigned int num, int *characters) {
-    char buffer [20];
+    char buffer[20];
     int i = 0;
+
     while (num) {
-        buffer[i++] = num % 10 + '0';
+        buffer[i++] = num % 8 + '0';
         num /= 8;
     }
+
     while (i) {
         putchar(buffer[--i]);
         (*characters)++;
     }
 }
+
 
 int my_printf(const char *format, ...) {
     int characters = 0;
@@ -157,8 +211,13 @@ int my_printf(const char *format, ...) {
 }
 
 
-int main(void)
-{
-  my_printf("Hello %s, number is %d, float is %f, pointer is %p, hex is 0x%x, unsigned is %u, octal is %o\n", "World", 42, 3.14, (void *)1234, 255, 129, 63);
-    return 0;
+int main(void) {
+  my_printf("Hello %s\n", "World");
+  printf("number is %d\n", 42);
+  printf("float is %f\n", 3.14);
+  printf("pointer is %p\n", (void *)1234);
+  printf("hex is Ox%x\n", 255);
+  printf("unsigned is %u\n", 128);
+  printf("octal is %o\n", 61);
+  return 0;
 }

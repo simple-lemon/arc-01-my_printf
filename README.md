@@ -101,14 +101,8 @@ To use the `my_printf` function in your project, follow these steps:
 Here's an example demonstrating how to use `my_printf`:
 
 ```c
-#include <stdio.h>
-
 int main() {
-    int num = 42;
-    char* str = "Hello, World!";
-    printf("Using my_printf: ");
-    my_printf("Number: %d, String: %s\n", num, str);
-
+    my_printf("Hello, %s! This is a test: %d, %u, %o, %x\n", "World", -123, 456, 127, 255);
     return 0;
 }
 ```

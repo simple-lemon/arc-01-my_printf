@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror # -g3 -fsanitize=address
 TARGET = my_printf
 OBJ = my_printf.o 
 SRC = my_printf.c 

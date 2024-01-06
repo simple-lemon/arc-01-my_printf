@@ -4,6 +4,22 @@
 #include <stdarg.h>  
 #include <unistd.h> 
 
+void my_putschr(char* p1);
+char* my_string_putschr(char* p1);
+int my_character_putschr(char c);
+int my_strlen(char* p1);
+char* my_reverse(char* p1, int flag);
+long int my_pow(long int num, long int pow);
+char* my_stringcpy(char* p1, char* p2);
+int num_length(long int num);
+char* my_itoa(long int number);
+char* my_octal_print(int octal_number);
+char* my_unsigned_number_print(int unsigned_number);
+char* my_hexadecimal_print(int hexadecimal_number);
+char* my_pointer_print(long int pointer_number);
+char* my_string_print(char* my_string);
+int my_printf(char* text, ...);
+
 void my_putschr(char* p1) // created to print %d.
 {
   for (int i = 0; p1[i]; i++) 

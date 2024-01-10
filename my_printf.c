@@ -83,7 +83,9 @@ int my_octal_printer(int num){
     return counter += my_reverse_printer(result);
 }
 
-int my_hx_printer(int num){
+
+
+int my_hx_long_printer(long int num){
     int i = 0, counter = 0, temp;
     char* result = calloc(sizeof(char), 11);
     while( num > 0){
@@ -91,7 +93,27 @@ int my_hx_printer(int num){
         if( temp < 10){
             result[i] = temp + 48;
         }else{
-            result[i] = temp + 55;
+            result[i] = temp + 87;
+        }
+        num /= 16;
+        i++;
+    }
+    return counter += my_reverse_printer(result);
+}
+
+int my_hx_printer(int num){
+    int i = 0, counter = 0, temp;
+    char* result = calloc(sizeof(char), 11);
+    if(num < 0){
+        int long pow_of_two = 4294967296 + num;
+        my_hx_long_printer(pow_of_two);
+    }
+    while( num > 0){
+        temp = (num % 16);
+        if( temp < 10){
+            result[i] = temp + 48;
+        }else{
+            result[i] = temp + 87;
         }
         num /= 16;
         i++;
@@ -133,8 +155,8 @@ int my_printf(char* str, ...){
                 counter += my_putchar(c);
             }else if( str[i + 1] == 's'){
                 i+=2;
-                char* str = my_strdup(va_arg(ptr, char*));
-                counter += my_putstr(str);
+                char* string = my_strdup(va_arg(ptr, char*));
+                counter += my_putstr(string);
             }else if(str[i+1] == 'o'){
                 i += 2;
                 int num_2 = (va_arg(ptr, int));
@@ -145,9 +167,9 @@ int my_printf(char* str, ...){
                 counter += my_hx_printer(num_3);
             }else if(str[i+1] == 'p'){
                 i+=2;
-                int addres = va_arg(ptr, int);
+                long int addres = va_arg(ptr, int);
                 counter += my_putstr("0x");
-                counter += my_hx_printer(addres);
+                counter += my_hx_long_printer(addres);
             }else if(str[i+1] == 'u'){
                 i+=2;
                 int unsigned_num = va_arg(ptr, int);
@@ -162,6 +184,6 @@ int my_printf(char* str, ...){
     return counter;
 }
 
-int main(){
-    return 0;
-}
+// int main(){
+//     return 0;
+// }

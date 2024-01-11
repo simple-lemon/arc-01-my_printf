@@ -12,29 +12,28 @@
 
 1. Clone the repository:
 
-   ```bash
+
     git clone https://github.com/muhammadnurullayev/arc-01-my_printf.git
-   ```
+
 
 2. Navigate to the project directory:
 
-   ```bash
+
     cd my_printf
-   ```
+
 
 3. Build the project using the provided Makefile:
 
-   ```bash
+
     make -f Makefile.mak
-   ```
+
 
 ### Usage
 
 - Start the game:
 
-  ```bash
     ./printf [-c secret_code] [-t attempts]
-  ```
+
 
 
 - Optional command line arguments:

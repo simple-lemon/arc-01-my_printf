@@ -1,12 +1,13 @@
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
-SOURCE = my_printf.c
-TARGET = my_printf
+CFLAGS = -Wall -Wextra -pedantic
 
-$(TARGET): $(SOURCE)
- $(CC) $(CFLAGS) -o $@ $^
+all: my_printf
 
-.PHONY: clean
+my_printf: my_printf.o
+	$(CC) $(CFLAGS) -o my_printf my_printf.o
+
+my_printf.o: my_printf.c
+	$(CC) $(CFLAGS) -c my_printf.c
 
 clean:
- rm -f $(TARGET)
+	rm -f my_printf *.o

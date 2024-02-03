@@ -1,61 +1,17 @@
 
-# my_printf
+ ## Usage 
+ 1.Include the my_printf function in your project by copying the provided code into your source code file.
+ 2.Call the my_printf function in your code to print formatted text.
+ ## Installation
+ To use my_printf in your project, place the my_printf.c and my_printf.о  files in your project directory. Include my_printf.о  in your source file where you intend to use the my_printf function.
+ ## Task
+ The task involves implementing a custom printf-like function (my_printf) that can handle various format specifiers such as %d, %s, %c, %p, %x, %o, etc., and correctly format and display the output according to these specifiers.
+ ## Description
+ The `my_printf` function produces output based on a format string, similar to the standard `printf`. The format string consists of ordinary characters, copied unchanged to the output stream, and conversion specifications introduced by the PERCENT character (%). Conversion specifications fetch subsequent arguments for output.
 
-A simple implementation of the printf function in C.
 
-## Description
+ ## The Core Team
+ <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
+ <span><img alt='Qwasar SV -- Software Engineering School's Logo' src='https://storage.googleapis.com/qwasar-public/qwasar-logo_50x50.png' width='20px' /></span>
+ 
 
-This project provides a simplified version of the printf function, which allows you to print formatted output to the console. It supports format specifiers for printing integers and strings.
-
-## Getting Started
-
-### Prerequisites
-
-- GCC (GNU Compiler Collection)
-
-### Building
-
-1. Clone the repository:
-
-git clone <repository-url>
-
-Copy
-
-2. Navigate to the project directory:
-
-cd my_printf
-
-Copy
-
-3. Build the project using the provided Makefile:
-
-make
-
-Copy
-
-### Usage
-
-To use the `my_printf` function, include the `my_printf.h` header file in your source code:
-
-```c
-#include "my_printf.h"
-Then, you can call the my_printf function with the desired format specifier and arguments:
-
-c
-Copy
-my_printf("Hello, %s!", "world");
-Supported format specifiers:
-
-%d: Print an integer
-%s: Print a string
-Contributing
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-Copy
-
-Feel free to customize the content according to your project's specifics. Remember to replace `<repository-url>` with the actual URL of your repository.
-
-If you have any further questions or need additional assistance, feel free to ask.

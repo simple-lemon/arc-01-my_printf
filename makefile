@@ -1,13 +1,23 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -g3 -fsanitize=address
 
-all: my_printf
+TARGET = my_printf
+SRC = my_printf.c
+OBJ = $(SRC:.c=.o)
 
-my_printf: my_printf.o
-	$(CC) $(CFLAGS) -o my_printf my_printf.o
+.PHONY: all clean fclean
 
-my_printf.o: my_printf.c
-	$(CC) $(CFLAGS) -c my_printf.c
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f my_printf *.o
+	rm -f $(TARGET) $(OBJ)
+
+fclean: clean
+	rm -f $(TARGET)

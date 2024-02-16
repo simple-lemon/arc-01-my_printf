@@ -1,127 +1,161 @@
-#include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-int my_putchar(char c)
-{
-    write(1, &c, 1);
-    return 1;
+int my_putchar(char );
+int my_putstr(const char *);
+void reverse(char [], int );
+char *my_itoa(int , int );
+int my_handle_octal(va_list );
+int my_handle_hexadecimal(va_list );
+int my_handle_pointer(va_list );
+int my_handle_(va_list );
+int my_printf(const char *, ...);
+
+int main() {
+  my_printf("Decimal: %d\n", 42);
+  my_printf("Octal: %o\n", 042);
+  my_printf("Hexadecimal: %x\n", 0x2A);
+  my_printf("Pointer: %p\n", (void *)0x12345678);
+  my_printf(": %u\n", 42);
+
+  return 0;
 }
 
-int my_puts(char *str)
-{
-    int i = 0;
-    while (str[i] != '\0') {
-        my_putchar(str[i]);
-        i++;
-    }
-    return i;
+int my_putchar(char c) {
+  write(1, &c, 1);
+  return 1;
 }
 
-int my_putd(int nb)
-{
-    int i = 0;
-    if (nb < 0) {
-        my_putchar('-');
-        nb = -nb;
-    }
-    if (nb >= 10) {
-        i += my_putd(nb / 10);
-        i += my_putd(nb % 10);
+int my_putstr(const char *str) {
+  int count = 0;
+  while (str[count] != '\0') {
+    write(1, str++, 1);
+    count++;
+  }
+  return count;
+}
+
+void reverse(char str[], int length) {
+  int start = 0;
+  int end = length - 1;
+  while (start < end) {
+    char temp = str[start];
+    str[start] = str[end];
+    str[end] = temp;
+    start++;
+    end--;
+  }
+}
+
+char *my_itoa(int num, int base) {
+  int isNegative = 0;
+  int length = 1;
+
+  if (num == 0) {
+    char *result = (char *)malloc(2);
+    result[0] = '0';
+    result[1] = '\0';
+    return result;
+  }
+
+  if (num < 0 && base != 10) {
+    isNegative = 1;
+    num = -num;
+  }
+
+  int temp = num;
+  while (temp != 0) {
+    temp /= base;
+    length++;
+  }
+
+  char *result = (char *)malloc(length + isNegative);
+
+  int i = 0;
+  while (num != 0) {
+    int remainder = num % base;
+    result[i++] = (remainder > 9) ? (remainder - 10) + 'a' : remainder + '0';
+    num /= base;
+  }
+
+  if (isNegative && base == 10) {
+    result[i++] = '-';
+  }
+
+  result[i] = '\0';
+
+  reverse(result, i);
+
+  return result;
+}
+
+int my_handle_octal(va_list ap) {
+  int octal_num = va_arg(ap, int);
+  char *buffer = my_itoa(octal_num, 8);
+  int count = my_putstr(buffer);
+  free(buffer);
+  return count;
+}
+
+int my_handle_hexadecimal(va_list ap) {
+  int hex_num = va_arg(ap, int);
+  char *buffer = my_itoa(hex_num, 16);
+  int count = my_putstr(buffer);
+  free(buffer);
+  return count;
+}
+
+int my_handle_pointer(va_list ap) {
+  void *ptr = va_arg(ap, void *);
+  char *buffer = my_itoa((long)ptr, 16);
+  int count = my_putstr(buffer);
+  free(buffer);
+  return count;
+}
+
+int my_handle_(va_list ap) {
+  int _num = va_arg(ap, int);
+  char *buffer = my_itoa(_num, 10);
+  int count = my_putstr(buffer);
+  free(buffer);
+  return count;
+}
+
+int my_printf(const char *format, ...) {
+  size_t i = 0, counter = 0;
+  va_list ap;
+  va_start(ap, format);
+
+  while (format[i]) {
+    if (format[i] == '%') {
+      i++;
+      if (format[i] == 'c') {
+        counter += my_putchar(va_arg(ap, int));
+      } else if (format[i] == 'd') {
+        char *buffer = my_itoa(va_arg(ap, int), 10);
+        counter += my_putstr(buffer);
+        free(buffer);
+      } else if (format[i] == 's') {
+        char *s = va_arg(ap, char *);
+        if (s != NULL) {
+          counter += my_putstr(s);
+        }
+      } else if (format[i] == 'o') {
+        counter += my_handle_octal(ap);
+      } else if (format[i] == 'x') {
+        counter += my_handle_hexadecimal(ap);
+      } else if (format[i] == 'p') {
+        counter += my_handle_pointer(ap);
+      } else if (format[i] == 'u') {
+        counter += my_handle_(ap);
+      }
     } else {
-        my_putchar(nb + '0');
-        i++;
+      counter += my_putchar(format[i]);
     }
-    return i;
-}
+    i++;
+  }
 
-int my_putud(unsigned int nbr)
-{
-    int len = 0;
-    if (nbr > 9)
-        len += my_putud(nbr / 10);
-    return len + my_putchar(nbr % 10 + '0');
-}
-
-int my_puto(unsigned int nbr)
-{
-    int len = 0;
-    if (nbr > 7)
-        len += my_puto(nbr / 8);
-    return len + my_putchar(nbr % 8 + '0');
-}
-
-int my_putx(unsigned int nbr)
-{
-    int len = 0;
-    if (nbr > 15)
-        len += my_putx(nbr / 16);
-    if (nbr % 16 < 10)
-        return len + my_putchar(nbr % 16 + '0');
-    else
-        return len + my_putchar(nbr % 16 + 'a' - 10);
-}
-
-int my_printf(const char * format, ...) 
-{
-    va_list ap;
-    char *s, c;
-    int d;
-    unsigned int u;
-    intptr_t x;
-    int len = 0;
-
-    va_start(ap, format);
-
-    while (*format) {
-        if (*format == '%') {
-            switch (*++format) {
-                case 's':
-                    s = va_arg(ap, char *);
-                    len += my_puts(s);
-                    break;
-
-                case 'd':
-                    d = va_arg(ap, int);
-                    len += my_putd(d);
-                    break;
-
-                case 'c':
-                    c = va_arg(ap, int);
-                    len += my_putchar(c);
-                    break;
-
-                case 'u':
-                    u = va_arg(ap, unsigned int);
-                    len += my_putud(u);
-                    break;
-
-                case 'o':
-                    u = va_arg(ap, unsigned int);
-                    len += my_puto(u);
-                    break;
-
-                case 'x':
-                    x = va_arg(ap, intptr_t);
-                    len += my_putx(x);
-                    break;
-                
-                case 'p':
-                    x = va_arg(ap, intptr_t);
-                    len += my_puts("0x") + my_putx(x);
-                    break;
-
-                default:
-                    len += my_putchar('%');
-            }
-            format++;
-        }
-        if (*format != '%') {
-            len += my_putchar(*format);
-            format++;
-        }
-    }
-    va_end(ap);
-
-    return len;
+  va_end(ap);
+  return counter;
 }

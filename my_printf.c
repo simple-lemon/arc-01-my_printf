@@ -91,7 +91,10 @@ int my_handle_hexadecimal(va_list ap) {
 int my_handle_pointer(va_list ap) {
   size_t ptr = va_arg(ap, size_t);
   char * buffer = my_itoa((size_t)ptr, 16);
+  // if windows 
   int count = my_putstr("0000");
+  // if mac os
+  // int count = my_putstr("0x");
   count += my_putstr(buffer);
   free(buffer);
   return count;
@@ -137,7 +140,7 @@ int my_printf(const char *format, ...) {
         counter += my_handle_pointer(ap);
       }
     } else {
-      counter += my_putchar(format[i]);
+      counter  += my_putchar(format[i]);
     }
     i++;
   }

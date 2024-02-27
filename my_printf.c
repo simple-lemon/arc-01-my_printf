@@ -1,53 +1,15 @@
-# My Printf
-This code is an implementation of a function from the standard library `<stdio.h>` called *printf*.
+#include <unistd.h>
+#include <stdarg.h>
 
-The code was written by [Abdussamad Turdixojayev](https://github.com/Abuuu2007).
-
-## Content
-- [Description](#description)
-- [Usage](#usage)
-- [Code Component](#code-component)
-- [Main function](#main-function)
-  
-## Description
-My custom version of `printf`, according to the instructions, should have 7 format specifiers, namely:
-1. `%d` - signed decimal
-2. `%o` - unsigned octal
-3. `%u` - unsigned decimal
-4. `%x` - unsigned hexadecimal
-5. `%c` - char
-6. `%s` - string
-7. `%p` - pointer
-
-But with all this, it was possible to use a limited number of functions, namely:
-
-* write(2)
-* malloc()
-* free()
-* va_list, va_start, va_arg, va_copy, va_end
-
-`malloc` and `free` were not used.
-
-## Usage
-
-The function's usage is similar to standard `printf`.
-
-## Code component
-### Creating a `my_putchar` to output a character
-```c
 void my_putchar(char c){
     write(1, &c, 1);
 }
-```
-### Creating `my_putstr` to output strings
-```c
+
 void my_putstr(char* str){
     for(int i = 0; str[i] != '\0'; i++)
         my_putchar(str[i]);
 }
-```
-### Creating `my_putint` to output integers
-```c
+
 void my_putint(int n){
     if(n < 0){
         my_putchar('-');
@@ -57,42 +19,31 @@ void my_putint(int n){
         my_putint(n / 10);
     my_putchar(n % 10 + '0');
 }
-```
-### Creating `my_putunsig` to output unsigned decimal
-```c
+
 void my_putunsig(unsigned n){
     if(n > 9)
         my_putunsig(n / 10);
     my_putchar(n % 10 + '0');
 }
-```
-### Creating `my_putoct` to output unsigned octal
-```c
+
 void my_putoct(unsigned n){
     if(n > 7)
         my_putoct(n / 8);
     my_putchar(n % 8 + '0');
 }
-```
-### Creating `my_puthex` to output unsigned hexadecimal 
-```c
+
 void my_puthex(unsigned n){
     if(n > 15)
         my_puthex(n / 16);
     my_putchar("0123456789abcdef"[n % 16]);
 }
-```
-### Creating `my_puthex` to output pointer
-In general, the `my_putptr` function is almost identical to `my_puthex`, but the difference is that in `my_putptr` all letters are uppercase. This is necessary to comply with the terminal, in which addresses are displayed in uppercase letters.
-```c
+
 void my_putptr(unsigned n){
     if(n > 15)
         my_putptr(n / 16);
     my_putchar("0123456789ABCDEF"[n % 16]);
 }
-```
-### And finally, I write `my_printf`, where I write down the possibility of using all 7 format specifiers
-```c
+
 void my_printf(char * restrict format, ...){
     va_list args;
     va_start(args, format);
@@ -147,10 +98,7 @@ void my_printf(char * restrict format, ...){
     }
     va_end(args);
 }
-```
-## `Main` function
-### And in the main function I wrote three variables that will be used to demonstrate the capabilities of `my_printf`, and a call to the function itself:
-```c
+
 int main(){
     int a = 12345;
     char c = 'c';
@@ -159,17 +107,3 @@ int main(){
 
     return 0;
 }
-```
-### The following text is displayed in the console:
-```
-Decimal:                12345
-Octal:                  30071
-Unsigned:               12345
-Hexadecimal:            3039
-Char:                   c
-String:                 Hello World
-Pointer:                0061FF14
-```
----
-
-### The note! This Readme file was written and translated from Russian, therefore some semantic errors may occur

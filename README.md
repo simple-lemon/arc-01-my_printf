@@ -12,4 +12,4 @@ my_printf("Hello, World!");
 
 # Installation
 
-gcc -Wall -Wextra -Werror my_printf.c -o my_printf
+After downloading the code, type make or mingw32-make in the terminal

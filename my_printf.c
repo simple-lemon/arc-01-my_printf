@@ -91,12 +91,11 @@ int my_printf(char *str, ...){
                 char *str_arg = va_arg(my_list, char *);
                 count += put_str(str_arg);
             }else if(str[i] == 'p'){
-                void *ptr = va_arg(my_list, void *);
-                int address = (uintptr_t) ptr;
-                char *ptr_str = calloc(20, sizeof(char));
-                ptr_str = my_itoa(address, ptr_str, 16);
+                int num = va_arg(my_list, int);
+                char *num_str = calloc(20, sizeof(char));
+                num_str = my_itoa(num, num_str, 16);
                 count += put_str("0x");
-                count += put_str(ptr_str);
+                count += put_str(num_str);
             }
         }else{
             count += put_char(str[i]);

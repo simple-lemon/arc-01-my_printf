@@ -82,8 +82,7 @@ void my_puthex(unsigned n){
     my_putchar("0123456789abcdef"[n % 16]);
 }
 ```
-### Creating `my_puthex` to output pointer
-In general, the `my_putptr` function is almost identical to `my_puthex`, but the difference is that in `my_putptr` all letters are uppercase. This is necessary to comply with the terminal, in which addresses are displayed in uppercase letters.
+### Creating `my_putptr` to output pointer
 ```c
 void my_putptr(void *ptr){
     uintptr_t p = (uintptr_t)ptr;

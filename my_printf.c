@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdlib.h>
 
-int put_char(char c){
+int my_putchar(char c){
     write(1, &c, 1);
     return 1;
 }
@@ -12,7 +11,7 @@ int put_str(char *str){
     int count = 0;
     int i = 0;
     while(str[i] != '\0'){
-        count += put_char(str[i]);
+        count += my_putchar(str[i]);
         i++;
     }
     return count;
@@ -42,9 +41,22 @@ char *my_reverse(char *p1){
 char *my_itoa(int num, char *str, int base){
     int i = 0;
     if(num < 0){
-        str[i+1] = '-';
+        my_putchar('-');
         num = -num;
     }
+    while(num > 0){
+        if((num % base) < 10){
+            str[i++] = (num % base) + '0';
+        }else{
+            str[i++] = (num % base) - 10 + 'a';
+        }
+        num /= base;
+    }
+    return my_reverse(str);
+}
+
+char *my_unsigned(unsigned num, char *str, int base){
+    int i = 0;
     while(num > 0){
         if((num % base) < 10){
             str[i++] = (num % base) + '0';
@@ -66,39 +78,39 @@ int my_printf(char *str, ...){
             i++;
             if(str[i] == 'd'){
                 int num = va_arg(my_list, int);
-                char *num_str = calloc(12, sizeof(char));
-                num_str = my_itoa(num, num_str, 10);
+                char num_str[12] = {0};
+                my_itoa(num, num_str, 10);
                 count += put_str(num_str);
             }else if(str[i] == 'o'){
                 int num = va_arg(my_list, int);
-                char *num_str = calloc(12, sizeof(char));
-                num_str = my_itoa(num, num_str, 8);
+                char num_str[12] = {0};
+                my_itoa(num, num_str, 8);
                 count += put_str(num_str);
             }else if(str[i] == 'u'){
-                int num = va_arg(my_list, int);
-                char *num_str = calloc(12, sizeof(char));
-                num_str = my_itoa(num, num_str, 10);
+                unsigned num = va_arg(my_list, unsigned);
+                char num_str[12] = {0};
+                my_unsigned(num, num_str, 10);
                 count += put_str(num_str);
             }else if(str[i] == 'x'){
                 int num = va_arg(my_list, int);
-                char *num_str = calloc(12, sizeof(char));
-                num_str = my_itoa(num, num_str, 16);
+                char num_str[12] = {0};
+                my_itoa(num, num_str, 16);
                 count += put_str(num_str);
             }else if(str[i] == 'c'){
                 char c = va_arg(my_list, int);
-                count += put_char(c);
+                count += my_putchar(c);
             }else if(str[i] == 's'){
                 char *str_arg = va_arg(my_list, char *);
                 count += put_str(str_arg);
             }else if(str[i] == 'p'){
-                int num = va_arg(my_list, int);
-                char *num_str = calloc(20, sizeof(char));
-                num_str = my_itoa(num, num_str, 16);
+                long num = va_arg(my_list, long);
+                char num_str[12] = {0};
+                my_itoa(num, num_str, 16);
                 count += put_str("0x");
                 count += put_str(num_str);
             }
         }else{
-            count += put_char(str[i]);
+            count += my_putchar(str[i]);
         }
         i++;
     }
@@ -107,6 +119,32 @@ int my_printf(char *str, ...){
 }
 
 int main(){
-    
+    int num = 12345678;
+    char str[] = "hello world";
+    char c = 'a';
+
+    my_printf("\t---P---\nmy Printf: %p\n", &num);
+    printf("org Printf: %p\n", &num);
+
+    my_printf("\t---o---\nmy Printf: %o\n", num);
+    printf("org Printf: %o\n", num);
+
+    my_printf("\t---x---\nmy Printf: %x\n", num);
+    printf("org Printf: %x\n", num);
+
+    my_printf("\t---d---\nmy Printf: %d\n", -num);
+    printf("org Printf: %d\n", -num);
+
+    my_printf("\t---c---\nmy Printf: %c\n", c);
+    printf("org Printf: %c\n", c);
+
+    my_printf("\t---s---\nmy Printf: %s\n", str);
+    printf("org Printf: %s\n", str);
+
+    my_printf("\t---u---\nmy Printf: %u\n", -num);
+    printf("org Printf: %u\n", -num);
+
+    my_printf("\t---u---\nmy Printf: %u\n", num);
+    printf("org Printf: %u\n", num);
     return 0;
 }

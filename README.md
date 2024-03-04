@@ -30,7 +30,7 @@ p The void * pointer argument is printed in hexadecimal.
 
 # Installation
 
-Download code and Run
+make
 
 # Usage
 

@@ -35,117 +35,133 @@ The function's usage is similar to standard `printf`.
 ## Code component
 ### Creating a `my_putchar` to output a character
 ```c
-void my_putchar(char c){
-    write(1, &c, 1);
+int my_putchar(char c){
+    return write(1, &c, 1);
 }
 ```
 ### Creating `my_putstr` to output strings
 ```c
-void my_putstr(char* str){
-    for(int i = 0; str[i] != '\0'; i++)
+int my_putstr(char* str){
+    int i;
+    for(i = 0; str[i] != '\0'; i++)
         my_putchar(str[i]);
+    return i;
 }
 ```
 ### Creating `my_putint` to output integers
 ```c
-void my_putint(int n){
+int my_putint(int n){
+    int count = 0;
     if(n < 0){
-        my_putchar('-');
+        count += my_putchar('-');
         n = -n;
     }
     if(n > 9)
-        my_putint(n / 10);
-    my_putchar(n % 10 + '0');
+        count += my_putint(n / 10);
+    count += my_putchar(n % 10 + '0');
+    return count;
 }
 ```
 ### Creating `my_putunsig` to output unsigned decimal
 ```c
-void my_putunsig(unsigned n){
+int my_putunsig(unsigned n){
+    int count = 0;
     if(n > 9)
-        my_putunsig(n / 10);
-    my_putchar(n % 10 + '0');
+        count += my_putunsig(n / 10);
+    count += my_putchar(n % 10 + '0');
+    return count;
 }
 ```
 ### Creating `my_putoct` to output unsigned octal
 ```c
-void my_putoct(unsigned n){
+int my_putoct(unsigned n){
+    int count = 0;
     if(n > 7)
-        my_putoct(n / 8);
-    my_putchar(n % 8 + '0');
+        count += my_putoct(n / 8);
+    count += my_putchar(n % 8 + '0');
+    return count;
 }
 ```
 ### Creating `my_puthex` to output unsigned hexadecimal 
 ```c
-void my_puthex(unsigned n){
+int my_puthex(unsigned n){
+    int count = 0;
     if(n > 15)
-        my_puthex(n / 16);
-    my_putchar("0123456789abcdef"[n % 16]);
+        count += my_puthex(n / 16);
+    count += my_putchar("0123456789abcdef"[n % 16]);
+    return count;
 }
 ```
 ### Creating `my_putptr` to output pointer
 ```c
-void my_putptr(void *ptr){
+int my_putptr(void *ptr){
+    int count = 0;
     uintptr_t p = (uintptr_t)ptr;
     if(p > 15)
-        my_putptr((void*)(p / 16));
-    my_putchar("0123456789ABCDEF"[p % 16]);
+        count += my_putptr((void*)(p / 16));
+    count += my_putchar("0123456789ABCDEF"[p % 16]);
+    return count;
 }
 ```
 ### And finally, I write `my_printf`, where I write down the possibility of using all 7 format specifiers
 ```c
-void my_printf(char * restrict format, ...){
+int my_printf(char * restrict format, ...){
     va_list args;
     va_start(args, format);
+
+    int count = 0;
 
     for(int i = 0; format[i] != '\0'; i++){
         if(format[i] == '%'){
             if(format[i+1] == 'd'){
                 int d = va_arg(args, int);
-                my_putint(d);
+                count += my_putint(d);
                 i++;
             }
             else if(format[i+1] == 'o'){
                 unsigned o = va_arg(args, unsigned);
-                my_putoct(o);
+                count += my_putoct(o);
                 i++;
             }
             else if(format[i+1] == 'u'){
                 unsigned u = va_arg(args, unsigned);
-                my_putunsig(u);
+                count += my_putunsig(u);
                 i++;
             }
             else if(format[i+1] == 'x'){
                 unsigned x = va_arg(args, unsigned);
-                my_puthex(x);
+                count += my_puthex(x);
                 i++;
             }
             else if(format[i+1] == 'c'){
                 char c = va_arg(args, int);
-                my_putchar(c);
+                count += my_putchar(c);
                 i++;
             }
             else if(format[i+1] == 's'){
                 char* s = va_arg(args, char*);
-                my_putstr(s);
+                count += my_putstr(s);
                 i++;
             }
             else if(format[i+1] == 'p'){
                 void *p = va_arg(args, void *);
-                my_putstr("00");
-                my_putptr(p);
+                count += my_putstr("00");
+                count += my_putptr(p);
                 i++;
             }
             else if(format[i+1] == '%'){
-                my_putchar(format[i+1]);
+                count += my_putchar(format[i+1]);
                 i++;
             }
             else
-                my_putchar(format[i]);
+                count += my_putchar(format[i]);
         }
         else
-            my_putchar(format[i]);
+            count += my_putchar(format[i]);
     }
     va_end(args);
+    
+    return count;
 }
 ```
 ## `Main` function

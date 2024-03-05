@@ -41,9 +41,10 @@ char *my_reverse(char *p1){
 char *my_itoa(int num, char *str, int base){
     int i = 0;
     if(num < 0){
-        my_putchar('-');
+        str[i++] = '-';
         num = -num;
     }
+    int j = i;
     while(num > 0){
         if((num % base) < 10){
             str[i++] = (num % base) + '0';
@@ -52,7 +53,7 @@ char *my_itoa(int num, char *str, int base){
         }
         num /= base;
     }
-    return my_reverse(str);
+    return my_reverse(&str[j]);
 }
 
 char *my_unsigned(unsigned num, char *str, int base){
@@ -104,7 +105,7 @@ int my_printf(char *str, ...){
                 count += put_str(str_arg);
             }else if(str[i] == 'p'){
                 long num = va_arg(my_list, long);
-                char num_str[12] = {0};
+                char num_str[21] = {0};
                 my_itoa(num, num_str, 16);
                 count += put_str("0x");
                 count += put_str(num_str);
@@ -146,5 +147,13 @@ int main(){
 
     my_printf("\t---u---\nmy Printf: %u\n", num);
     printf("org Printf: %u\n", num);
+
+    my_printf("\t---Length test---\n");
+
+    int len_my_printf = my_printf("Test length: %d\n", -1234567890);
+    int len_org_printf = printf("Test length: %d\n", -1234567890);
+
+    printf("\nLength my Printf: %d\n", len_my_printf);
+    printf("Length org Printf: %d\n", len_org_printf);
     return 0;
 }

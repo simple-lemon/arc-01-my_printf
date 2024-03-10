@@ -69,6 +69,46 @@ char *my_unsigned(unsigned num, char *str, int base){
     return my_reverse(str);
 }
 
+int my_printf_d(int num) {
+    char num_str[12] = {0};
+    my_itoa(num, num_str, 10);
+    return put_str(num_str);
+}
+
+int my_printf_o(int num) {
+    char num_str[12] = {0};
+    my_itoa(num, num_str, 8);
+    return put_str(num_str);
+}
+
+int my_printf_u(unsigned num) {
+    char num_str[12] = {0};
+    my_unsigned(num, num_str, 10);
+    return put_str(num_str);
+}
+
+int my_printf_x(int num) {
+    char num_str[12] = {0};
+    my_itoa(num, num_str, 16);
+    return put_str(num_str);
+}
+
+int my_printf_c(char c) {
+    return my_putchar(c);
+}
+
+int my_printf_s(char *str) {
+    return put_str(str);
+}
+
+int my_printf_p(long num) {
+    char num_str[21] = {0};
+    my_itoa(num, num_str, 16);
+    int count = put_str("0x");
+    count += put_str(num_str);
+    return count;
+}
+
 int my_printf(char *str, ...){
     va_list my_list;
     va_start(my_list, str);
@@ -78,37 +118,19 @@ int my_printf(char *str, ...){
         if(str[i] == '%'){
             i++;
             if(str[i] == 'd'){
-                int num = va_arg(my_list, int);
-                char num_str[12] = {0};
-                my_itoa(num, num_str, 10);
-                count += put_str(num_str);
-            }else if(str[i] == 'o'){
-                int num = va_arg(my_list, int);
-                char num_str[12] = {0};
-                my_itoa(num, num_str, 8);
-                count += put_str(num_str);
-            }else if(str[i] == 'u'){
-                unsigned num = va_arg(my_list, unsigned);
-                char num_str[12] = {0};
-                my_unsigned(num, num_str, 10);
-                count += put_str(num_str);
-            }else if(str[i] == 'x'){
-                int num = va_arg(my_list, int);
-                char num_str[12] = {0};
-                my_itoa(num, num_str, 16);
-                count += put_str(num_str);
-            }else if(str[i] == 'c'){
-                char c = va_arg(my_list, int);
-                count += my_putchar(c);
-            }else if(str[i] == 's'){
-                char *str_arg = va_arg(my_list, char *);
-                count += put_str(str_arg);
-            }else if(str[i] == 'p'){
-                long num = va_arg(my_list, long);
-                char num_str[21] = {0};
-                my_itoa(num, num_str, 16);
-                count += put_str("0x");
-                count += put_str(num_str);
+                count += my_printf_d(va_arg(my_list, int));
+            }else if(str[i] == 'o') {
+                count += my_printf_o(va_arg(my_list, int));
+            }else if(str[i] == 'u') {
+                count += my_printf_u(va_arg(my_list, unsigned));
+            }else if(str[i] == 'x') {
+                count += my_printf_x(va_arg(my_list, int));
+            }else if(str[i] == 'c') {
+                count += my_printf_c(va_arg(my_list, int));
+            }else if(str[i] == 's') {
+                count += my_printf_s(va_arg(my_list, char *));
+            }else if(str[i] == 'p') {
+                count += my_printf_p(va_arg(my_list, long));
             }
         }else{
             count += my_putchar(str[i]);

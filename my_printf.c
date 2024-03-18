@@ -38,7 +38,7 @@ char *my_reverse(char *p1){
     return p1;
 }
 
-char *my_itoa(int num, char *str, int base){
+char *my_itoa(long num, char *str, int base){
     int i = 0;
     if(num < 0){
         str[i++] = '-';
@@ -75,7 +75,7 @@ int my_printf_d(int num) {
     return put_str(num_str);
 }
 
-int my_printf_o(int num) {
+int my_printf_o(long num) {
     char num_str[12] = {0};
     my_itoa(num, num_str, 8);
     return put_str(num_str);
@@ -87,7 +87,7 @@ int my_printf_u(unsigned num) {
     return put_str(num_str);
 }
 
-int my_printf_x(int num) {
+int my_printf_x(long num) {
     char num_str[12] = {0};
     my_itoa(num, num_str, 16);
     return put_str(num_str);
@@ -120,11 +120,11 @@ int my_printf(char *str, ...){
             if(str[i] == 'd'){
                 count += my_printf_d(va_arg(my_list, int));
             }else if(str[i] == 'o') {
-                count += my_printf_o(va_arg(my_list, int));
+                count += my_printf_o(va_arg(my_list, long));
             }else if(str[i] == 'u') {
                 count += my_printf_u(va_arg(my_list, unsigned));
             }else if(str[i] == 'x') {
-                count += my_printf_x(va_arg(my_list, int));
+                count += my_printf_x(va_arg(my_list, long));
             }else if(str[i] == 'c') {
                 count += my_printf_c(va_arg(my_list, int));
             }else if(str[i] == 's') {

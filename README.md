@@ -8,7 +8,26 @@ The task is to implement the my_printf function, which accepts a format string a
 
 # Usage
 
-my_printf("Hello, World!");
+%d dan foydalanish:
+my_printf("%d\n", 12345678);
+
+%s dan foydalanish:
+my_printf("\%s\n", str);
+
+%c dan foydalanish:
+my_printf("%c\n", c);
+
+%o dan foydalanish:
+my_printf("%o\n", num);
+
+%u dan foydalanish:
+my_printf("%u\n", num);
+
+%x dan foydalanish:
+my_printf("%x\n", num);
+
+%p dan foydalanish:
+my_printf("%p\n", &num);
 
 # Installation
 

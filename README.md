@@ -8,25 +8,25 @@ The task is to implement the my_printf function, which accepts a format string a
 
 # Usage
 
-%d dan foydalanish:
-my_printf("%d\n", 12345678);
+Using %d:
+my_printf("%d\n", num);
 
-%s dan foydalanish:
+Using %s:
 my_printf("\%s\n", str);
 
-%c dan foydalanish:
-my_printf("%c\n", c);
+Using %c:
+my_printf("%c\n", name);
 
-%o dan foydalanish:
+Using %o:
 my_printf("%o\n", num);
 
-%u dan foydalanish:
+Using %u:
 my_printf("%u\n", num);
 
-%x dan foydalanish:
+Using %x:
 my_printf("%x\n", num);
 
-%p dan foydalanish:
+Using %p:
 my_printf("%p\n", &num);
 
 # Installation

@@ -76,7 +76,7 @@ int my_printf_d(int num) {
 }
 
 int my_printf_o(long num) {
-    char num_str[12] = {0};
+    char num_str[21] = {0};
     my_itoa(num, num_str, 8);
     return put_str(num_str);
 }
@@ -88,7 +88,7 @@ int my_printf_u(unsigned num) {
 }
 
 int my_printf_x(long num) {
-    char num_str[12] = {0};
+    char num_str[21] = {0};
     my_itoa(num, num_str, 16);
     return put_str(num_str);
 }

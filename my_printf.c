@@ -183,7 +183,7 @@ int my_printf(char * restrict format, ...) {
 }
 
 int main () {
-    char str[] = "Holmon";
+    char str[] = "Samandar";
     char lang = 'C';
     int years = 19;
     int* ptr = &years;

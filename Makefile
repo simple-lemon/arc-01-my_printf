@@ -1,18 +1,13 @@
-TARGET = my_printf
-CC = gcc 
-SRC = my_printf.c
-FLAGS = -Wall -Wextra -Werror 
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-all : $(TARGET)
-$(TARGET) : $()
- $(CC) $(FLAGS) -o $(TARGET) $(SRC)
+all: my_printf
 
+my_printf: my_printf.o
+	$(CC) $(CFLAGS) -o $@ $^
 
-clean : 
- rm  -r $(TARGET) 
- .PHONY : fclean
+my_printf.o: my_printf.c
+	$(CC) $(CFLAGS) -c $<
 
-fclean:
- rm -rf $(TARGET)
-
-re : fclean all
+clean:
+	rm -f my_printf my_printf.o

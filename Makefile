@@ -1,19 +1,9 @@
-CC = gcc
-CFLAGS = -Wall -Wextra
+CC = gcc 
+CFLAGS = -Wall -Wextra -std=c99
+TARGET = my_printf
+SRC = my_printf.c
 
-SRC = main.c
-OBJ = $(SRC:.c=.o)
-EXECUTABLE = my_program
-
-all: $(EXECUTABLE)
-
-$(EXECUTABLE): $(OBJ)
+$(TARGET): $(SRC)
 	$(CC) $(CFLAGS) -o $@ $^
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
-
 clean:
-	rm -f $(OBJ) $(EXECUTABLE)
-
-PHONY: all clean
+	rm -fr $(TARGET)

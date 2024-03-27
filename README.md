@@ -1,50 +1,52 @@
-# My C Program
+# my_printf Implementation in C
 
-Bu C dasturingizni nomi. Bu dastur qanday ishlashi, qanday o'rnatilishi va qanday ishlatilishi haqida tushuntiruv beradi.
+This C program provides a simplified implementation of the `printf` function, allowing basic formatting for strings (`%s`) and characters (`%c`). The program is designed to be easy to understand and extend.
 
-## O'rnatish
+## Table of Contents
 
-Dasturni o'rnatish uchun quyidagi qadamlarni bajarish kerak:
+- [File Structure](#file-structure)
+- [Functions](#functions)
+- [Usage](#usage)
+- [Example](#example)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. **Dasturni yuklab oling:**
-    ```bash
-    git clone https://github.com/sizning-hisob-kitobingiz.git
-    cd sizning-hisob-kitobingiz
-    ```
+## File Structure
 
-2. **Dasturni kompilyatsiya qiling:**
-    ```bash
-    make
-    ```
+- **my_printf.c**: Contains the source code for the `my_printf` implementation.
+- **README.md**: The documentation file you are currently reading.
 
-## Foydalanish
+## Functions
 
-Dasturni ishlatish uchun quyidagi qadamlarni bajarish kerak:
+- **my_putchar(int c):**
+  Writes a character to the standard output.
 
-1. **Dasturni ishga tushirish:**
-    ```bash
-    ./my_program
-    ```
+- **my_putstr(const char *str):**
+  Writes a string to the standard output and returns the number of characters written.
 
-2. **Testlarni bajaring:**
-    ```bash
-    ./my_program
-    ```
+- **proceed_flag(va_list *arg, char flag):**
+  Processes format specifiers (`%s` and `%c`) and calls corresponding functions to handle them.
 
-## Muqadim
+- **my_printf(const char* format, ...):**
+  Implements a simplified version of the `printf` function. Supports `%s` for strings and `%c` for characters.
 
-Bu erda dastur haqida muqaddima berishingiz mumkin. Ushbu bo'limda sizning dasturingizni foydalanish uchun bazi muhim nuqtalarni aytishingiz yoki foydalanishchilarga yordam bera olishingiz mumkin.
+## Usage
 
-## Yordam
+To use the `my_printf` function in your C program, include the `my_printf.c` file in your project. Use the following functions:
 
-Agar sizda savollar yoki takliflar bo'lsa, iltimos, biz bilan bog'laning. Biz sizga yordam bera olish uchun hozirga qadar tayyormiz!
+- `my_printf(const char* format, ...)`: Formats and prints the given arguments based on the format string.
 
-## Avtor
+## Example
 
-* Ismingiz Familiyangiz
-* Elektron manzil: sizning.email@domain.com
+```c
+#include "my_printf.c"
 
-## License
+int main() {
+    my_printf("Hello, everybody\n");
+    my_printf("Hello world! this is five: %d\n", 5);
+    my_printf("%c\n", 'H');
+    my_printf("%c%c%c%c%c!\n", 'H', 'e', 'l', 'l', 'o');
+    my_printf("%d!\n", 1337);
 
-Ushbu dastur [MIT litsenziyasi](LICENSE) bilan ta'minlangan.
-
+    return 0;
+}
